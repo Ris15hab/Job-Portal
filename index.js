@@ -3,13 +3,11 @@ const express = require('express')
 const morgan = require('morgan')
 const db = require('./connection')
 const dotenv = require('dotenv').config()
-
 // initialising express app
 const app = express()
 
 // formatting incoming data
 app.use(express.json())
-
 // Logging 
 app.use(morgan('dev'))
 
@@ -22,7 +20,7 @@ app.use('/user',userRoute)
 app.use('/company',companyRoute)
 app.use('/employee',employeeRoute)
 //Setting Port
-let port = process.env.PORT || 8001
+let port = process.env.PORT || 8002
 
 //setting server
 app.use((req,res,next)=>{

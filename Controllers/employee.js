@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 // const { ObjectId } = require('mongodb')
+const Company = require('../Models/company')
 const User = require('../Models/user')
 const Employee = require('../Models/employee')
 
@@ -13,9 +14,13 @@ const register = async(req,res)=>{
             const { username, firstName, lastName, status , experience , location} = req.body
             const validUser = await User.findOne({username: req.body.username})
             if(validUser){
-                const employee = new Employee(req.body)
-                await employee.save()
-                 res.status(200).json({message:'Success'})
+                const employee = await new Employee(req.body)
+                employee.save()
+                const token = jwt.sign({username:req.body.username},process.env.TOKEN,{expiresIn:'1d'})
+                return res.status(200).header('auth',token).send({
+                    Employee:validUser,
+                    tokens:token
+                })
             }
             else
             {
@@ -26,7 +31,32 @@ const register = async(req,res)=>{
         }
     
 }
+const allJobs = async(req,res)=>{
+    try{
+        const jobs = await Company.find({})
+        res.status(200).json(jobs)
+    }catch(error){
+        res.status(404).json({message:error.message})
+    }
+}
+const jobsLocation = async(req,res)=>{
+    try{
+        const location = req.body
+        const jobs = await Company.find({location : req.body.location})
+        if(jobs==[]){
+            res.status(400).json({message:'No jobs in this location'})
+        }
+        else{
+            
+            res.status(200).json(jobs)
+        }
+    }catch(error){
+        res.status(400).json({message:error.messsage})
+    }
+}
 //exporting modules
 module.exports = {
-    register
+    register,
+    allJobs,
+    jobsLocation
 }

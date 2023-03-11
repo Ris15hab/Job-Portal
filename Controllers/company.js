@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 // const { ObjectId } = require('mongodb')
 const Company = require('../Models/company')
 const User = require('../Models/user')
-
+const Employee = require('../Models/employee')
 //create event
 
 const register = async(req,res)=>{
@@ -26,7 +26,16 @@ const register = async(req,res)=>{
         }
     
 }
+const allEmployees = async(req,res)=>{
+    try{
+        const all = await Employee.find().sort({"experience":-1})
+        res.status(200).json(all)
+    }catch(error){
+        res.status(400).json({message:error.message})
+    }
+}
 //exporting modules
 module.exports = {
-    register
+    register,
+    allEmployees
 }
