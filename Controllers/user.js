@@ -35,11 +35,11 @@ const register = async(req,res)=>{
         const user = new User(req.body)
         try{
             await user.save()
-            res.status(200).json({message:'Success'})
+            res.status(200).json([{"code":"200"},{message:'Success'}])
             sendMail(username,useremail);
             console.log("Email sent");
         }catch(error){
-            return res.status(400).json({message:error.message})
+            return res.status(400).json({"code":"400"},{message:error.message})
         }
     
 }
@@ -56,17 +56,18 @@ const login = async(req,res)=>{
                 const token = jwt.sign({username:req.body.username},process.env.TOKEN,{expiresIn:'1d'})
                 return res.status(200).header('auth',token).send({
                     User:validname,
-                    tokens:token
+                    tokens:token,
+                    code:200
                 })
             }
             else
             {
-                res.status(400).json({message:'incorrect'})
+                res.status(400).json({"code":"400"},{message:'incorrect'})
             }
         }
         else
         {
-            res.status(400).json({message:'incorrect'})
+            res.status(400).json({"code":"400"},{message:'incorrect'})
         }
 }
 //exporting modules

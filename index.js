@@ -15,10 +15,12 @@ app.use(morgan('dev'))
 const userRoute = require('./Routes/user')
 const companyRoute = require('./Routes/company')
 const employeeRoute = require('./Routes/employee')
+const jobRoute = require('./Routes/jobs')
 //assigning routes
 app.use('/user',userRoute)
 app.use('/company',companyRoute)
 app.use('/employee',employeeRoute)
+app.use('/jobs',jobRoute)
 //Setting Port
 let port = process.env.PORT || 8002
 

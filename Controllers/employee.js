@@ -19,24 +19,25 @@ const register = async(req,res)=>{
                 const token = jwt.sign({username:req.body.username},process.env.TOKEN,{expiresIn:'1d'})
                 return res.status(200).header('auth',token).send({
                     Employee:validUser,
-                    tokens:token
+                    tokens:token,
+                    code:200
                 })
             }
             else
             {
-                res.status(400).json({message:'please register first'})
+                res.status(400).json({"code":"400"},{message:'please register first'},{code:400})
             }
         }catch(error){
-            return res.status(400).json({message:error.message})
+            return res.status(400).json({"code":"400"},{message:error.message})
         }
     
 }
 const allJobs = async(req,res)=>{
     try{
         const jobs = await Company.find({})
-        res.status(200).json(jobs)
+        res.status(200).json({"code":"200"},jobs)
     }catch(error){
-        res.status(404).json({message:error.message})
+        res.status(404).json({"code":"400"},{message:error.message})
     }
 }
 const jobsLocation = async(req,res)=>{
@@ -44,11 +45,11 @@ const jobsLocation = async(req,res)=>{
         const location = req.body
         const jobs = await Company.find({location : req.body.location})
         if(jobs==[]){
-            res.status(400).json({message:'No jobs in this location'})
+            res.status(400).json({"code":"400"},{message:'No jobs in this location'})
         }
         else{
             
-            res.status(200).json(jobs)
+            res.status(200).json({"code":"200"},jobs)
         }
     }catch(error){
         res.status(400).json({message:error.messsage})

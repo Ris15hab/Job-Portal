@@ -15,23 +15,23 @@ const register = async(req,res)=>{
             if(validUser){
                 const company = new Company(req.body)
                 await company.save()
-                 res.status(200).json({message:'Success'})
+                 res.status(200).json({"code":"200"},{message:'Success'})
             }
             else
             {
                 res.status(400).json({message:'please register first'})
             }
         }catch(error){
-            return res.status(400).json({message:error.message})
+            return res.status(400).json({"code":"400"},{message:error.message})
         }
     
 }
 const allEmployees = async(req,res)=>{
     try{
         const all = await Employee.find().sort({"experience":-1})
-        res.status(200).json(all)
+        res.status(200).json({"code":"200"},all)
     }catch(error){
-        res.status(400).json({message:error.message})
+        res.status(400).json({"code":"400"},{message:error.message})
     }
 }
 //exporting modules

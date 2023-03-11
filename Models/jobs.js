@@ -9,7 +9,7 @@ const jobSchema = mongoose.Schema({
     companyName : {
         type:String
     },
-    jobPost:{
+    category:{
         type:String
     },
     jobDescription:{
@@ -20,6 +20,13 @@ const jobSchema = mongoose.Schema({
     },
     salary:{
         type:String
+    },
+    deadline:{
+        type: Date
+    },
+    jobType:{
+        type: String
     }
 })
 const Job = mongoose.model('jobs',jobSchema)
+module.exports = Job
