@@ -15,14 +15,14 @@ const register = async(req,res)=>{
             if(validUser){
                 const company = new Company(req.body)
                 await company.save()
-                 res.status(200).json({"code":"200"},{message:'Success'})
+                 res.status(200).json({message:'Success'})
             }
             else
             {
                 res.status(400).json({message:'please register first'})
             }
         }catch(error){
-            return res.status(400).json({"code":"400"},{message:error.message})
+            return res.status(400).json({message:error.message})
         }
     
 }

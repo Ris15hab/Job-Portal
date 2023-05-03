@@ -15,17 +15,20 @@ const employeeSchema = mongoose.Schema({
     lastName:{
         type: String,
     },
-    status:{
-        type: String,
-    },
     experience:{
         type: Number,
+    },
+    gender:{
+        type: String,
     },
     location:{
         type: String,
     },
     phoneNumber:{
         type: String,
+    },
+    dob:{
+        type: Date
     }
 },{timestamps:true})
 

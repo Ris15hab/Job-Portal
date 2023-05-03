@@ -11,6 +11,7 @@ const authentication = {
                 const token = header.split(' ')[1]
                 const verifiedtoken = jwt.verify(token , process.env.TOKEN)
                 req.user=verifiedtoken
+                userData = req.user
                 next()
             }
             else

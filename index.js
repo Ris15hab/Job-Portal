@@ -16,11 +16,14 @@ const userRoute = require('./Routes/user')
 const companyRoute = require('./Routes/company')
 const employeeRoute = require('./Routes/employee')
 const jobRoute = require('./Routes/jobs')
+const applyRoute = require('./Routes/applyJobs')
+
 //assigning routes
 app.use('/user',userRoute)
 app.use('/company',companyRoute)
 app.use('/employee',employeeRoute)
 app.use('/jobs',jobRoute)
+app.use('/apply',applyRoute)
 //Setting Port
 let port = process.env.PORT || 8002
 
